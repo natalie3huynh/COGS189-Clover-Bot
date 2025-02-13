@@ -1,4 +1,7 @@
-# OpenVEP
+# COGS 189 Project
+
+The below code is adapted from OpenVEP public code to filter and classify SSVEP signals.
+##OpenVEP
 
 ## Setup for Windows 11
 ```
