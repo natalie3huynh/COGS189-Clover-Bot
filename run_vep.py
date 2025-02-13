@@ -33,7 +33,8 @@ import psychopy.visual
 import psychopy.event
 from psychopy import core
 
-letters = 'QAZ⤒WSX,EDC?R⌫FVT⎵GBYHN.UJMPIKOL'
+#modify letters to be words
+letters = ['LEFT', 'UP', 'RIGHT', 'DOWN', 'LEAN', 'RECLINE']
 win = psychopy.visual.Window(
         size=(800, 800),
         units="norm",
@@ -47,7 +48,8 @@ cap_rect_norm = [-(text_cap_size / 2.0) / (win.size[0] / 2.0),  # left
                      +(text_cap_size / 2.0) / (win.size[1] / 2.0),  # top
                      +(text_cap_size / 2.0) / (win.size[0] / 2.0),  # right
                      -(text_cap_size / 2.0) / (win.size[1] / 2.0)]  # bottom
-# capture the rendering of each letter
+
+# capture the rendering of each letter --> modify to now reder words
 for (i_letter, letter) in enumerate(letters):
     text.text = letter.upper()
     buff = psychopy.visual.BufferImageStim(
