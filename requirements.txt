@@ -1,0 +1,2 @@
+psychopy>=2022.1.4
+brainflow>=5.1.2
