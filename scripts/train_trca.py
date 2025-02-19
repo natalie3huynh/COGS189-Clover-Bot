@@ -60,7 +60,7 @@ for run_file in run_files:
     reverted_eeg_trials = np.empty_like(eeg_trials)
     reverted_eeg_trials[shuffled_indices] = eeg_trials
     
-    # Reshape the reverted EEG trials to (2, 32, 8, 350)
+    # Reshape the reverted EEG trials to (2, 32, 8, 350) -->RESHAPE BASED ON FINAL BUTTONS
     reverted_eeg_trials = reverted_eeg_trials.reshape(2, 32, 8, 350)
     # reverted_eeg_trials = reverted_eeg_trials.reshape(2, 32, 8, 425)
     
