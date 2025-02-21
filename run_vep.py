@@ -39,6 +39,7 @@ win = psychopy.visual.Window(
         size=(800, 800),
         units="norm",
         fullscr=False)
+#Change to the # of buttons
 n_text = 32
 text_cap_size = 64 #119  # 34
 text_strip_height = n_text * text_cap_size
