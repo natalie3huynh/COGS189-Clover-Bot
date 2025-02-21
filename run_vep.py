@@ -34,13 +34,13 @@ import psychopy.event
 from psychopy import core
 
 #modify letters to be words
-letters = ['LEFT', 'UP', 'RIGHT', 'DOWN', 'LEAN', 'RECLINE']
+letters = ['LEFT ARM', 'RIGHT ARM', 'LEFT LEG', 'RIGHT LEG', 'PILLOW', 'MASK', 'OK', 'NOT DONE', 'HELP']
 win = psychopy.visual.Window(
         size=(800, 800),
         units="norm",
         fullscr=False)
 #Change to the # of buttons
-n_text = 32
+n_text = 9
 text_cap_size = 64 #119  # 34
 text_strip_height = n_text * text_cap_size
 text_strip = np.full((text_strip_height, text_cap_size), np.nan)
@@ -91,25 +91,25 @@ phases = np.array([
 win.close()
 print(text_strip.shape, el_mask.shape, phases.shape)
 
-def create_32_targets(size=2/8*0.7, colors=[-1, -1, -1] * 32, checkered=False, elementTex=None, elementMask=None, phases=None):
+def create_9_targets(size=2/8*0.7, colors=[-1, -1, -1] * 9, checkered=False, elementTex=None, elementMask=None, phases=None):
     width, height = window.size
     aspect_ratio = width/height
-    positions = create_32_target_positions(size)
+    positions = create_9_target_positions(size)
     # positions = [[int(pos[0]*width/2), int(pos[1]*height/2)] for pos in positions]
     if checkered:
         texture = checkered_texure()
     else:
         texture = elementTex
-    keys = visual.ElementArrayStim(window, nElements=32, elementTex=texture, elementMask=elementMask, units='norm',
+    keys = visual.ElementArrayStim(window, nElements=9, elementTex=texture, elementMask=elementMask, units='norm',
                                    sizes=[size, size * aspect_ratio], xys=positions, phases=phases, colors=colors) # sizes=[size, size * aspect_ratio]
     return keys
 
-def create_32_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 32):
+def create_9_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 9):
     width, height = window.size
     aspect_ratio = width/height
-    positions = create_32_target_positions(size)
+    positions = create_9_target_positions(size)
     positions = [[pos[0]*width/2, pos[1]*height/2] for pos in positions]
-    keys = visual.ElementArrayStim(window, nElements=32, elementTex=text_strip, elementMask=el_mask, units='pix',
+    keys = visual.ElementArrayStim(window, nElements=9, elementTex=text_strip, elementMask=el_mask, units='pix',
                                    sizes=text_strip.shape, xys=positions, phases=phases, colors=colors)
     return keys
 
@@ -122,7 +122,7 @@ def checkered_texure():
         array[i, 1::2] = (i+1) % 2  # Set every other element to 0 or 1, alternating by row
     return np.kron(array, np.ones((16, 16)))*2-1
 
-def create_32_target_positions(size=2/8*0.7):
+def create_9_target_positions(size=2/8*0.7):
     size_with_border = size / 0.7
     width, height = window.size
     aspect_ratio = width/height
@@ -160,8 +160,8 @@ window = visual.Window(
         useRetina = False,
     )
 # visual_stimulus = create_32_targets(checkered=False, elementTex=text_strip, elementMask=el_mask, phases=phases)
-visual_stimulus = create_32_targets(checkered=False)
-key_caps = create_32_key_caps()
+visual_stimulus = create_9_targets(checkered=False)
+key_caps = create_9_key_caps()
 photosensor_dot = create_photosensor_dot()
 photosensor_dot.color = np.array([-1, -1, -1])
 photosensor_dot.draw()
@@ -257,23 +257,25 @@ if cyton_in:
 num_frames = np.round(stim_duration * refresh_rate).astype(int)  # total number of frames per trial
 frame_indices = np.arange(num_frames)  # frame indices for the trial
 if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
-    stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
-                        (9, 0), (9, 0.5), (9, 1), (9, 1.5),
-                        (10, 0), (10, 0.5), (10, 1), (10, 1.5),
-                        (11, 0), (11, 0.5), (11, 1), (11, 1.5),
-                        (12, 0), (12, 0.5), (12, 1), (12, 1.5),
-                        (13, 0), (13, 0.5), (13, 1), (13, 1.5),
-                        (14, 0), (14, 0.5), (14, 1), (14, 1.5),
-                        (15, 0), (15, 0.5), (15, 1), (15, 1.5), ] # flickering frequencies (in hz) and phase offsets (in pi*radians)
+    # stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
+    #                     (9, 0), (9, 0.5), (9, 1), (9, 1.5),
+    #                     (10, 0), (10, 0.5), (10, 1), (10, 1.5),
+    #                     (11, 0), (11, 0.5), (11, 1), (11, 1.5),
+    #                     (12, 0), (12, 0.5), (12, 1), (12, 1.5),
+    #                     (13, 0), (13, 0.5), (13, 1), (13, 1.5),
+    #                     (14, 0), (14, 0.5), (14, 1), (14, 1.5),
+    #                     (15, 0), (15, 0.5), (15, 1), (15, 1.5), ] # flickering frequencies (in hz) and phase offsets (in pi*radians)
+    stimulus_classes = [(8, 0), (9, 0), (10, 0), (11, 0), (12, 0), #changed so flickering freq from 8-15 hz but only phase offsets at 0
+                        (13, 0), (14, 0), (15, 0), (8, 0.5)]
     stimulus_frames = np.zeros((num_frames, len(stimulus_classes)))
     for i_class, (flickering_freq, phase_offset) in enumerate(stimulus_classes):
             phase_offset += .00001  # nudge phase slightly from points of sudden jumps for offsets that are pi multiples
             stimulus_frames[:, i_class] = signal.square(2 * np.pi * flickering_freq * (frame_indices / refresh_rate) + phase_offset * np.pi)  # frequency approximation formula
 # trial_sequence = create_trial_sequence(n_per_class=n_per_class, classes=stimulus_classes, seed=run)
-trial_sequence = np.tile(np.arange(32), n_per_class)
+trial_sequence = np.tile(np.arange(9), n_per_class)
 np.random.seed(run)
 np.random.shuffle(trial_sequence)
-target_positions = create_32_target_positions(size=2/8*0.7)
+target_positions = create_9_target_positions(size=2/8*0.7)
 
 eeg = np.zeros((8, 0))
 aux = np.zeros((3, 0))
