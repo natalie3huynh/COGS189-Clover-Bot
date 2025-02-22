@@ -114,8 +114,8 @@ def create_9_key_caps(size=2/8*0.7, colors=[-1, -1, -1] * 9):
     return keys
 
 def checkered_texure():
-    rows = 8  # Replace with desired number of rows
-    cols = 8  # Replace with desired number of columns
+    rows = 3  # Replace with desired number of rows
+    cols = 3  # Replace with desired number of columns
     array = np.zeros((rows, cols))
     for i in range(rows):
         array[i, ::2] = i % 2  # Set every other element to 0 or 1, alternating by row
@@ -127,8 +127,8 @@ def create_9_target_positions(size=2/8*0.7):
     width, height = window.size
     aspect_ratio = width/height
     positions = []
-    for i_col in range(8):
-        positions.extend([[i_col*size_with_border-1+size_with_border/2, -j_row*size_with_border*aspect_ratio+1-size_with_border*aspect_ratio/2 - 1/4/2] for j_row in range(4)])
+    for i_col in range(3):
+        positions.extend([[i_col*size_with_border-1+size_with_border/2, -j_row*size_with_border*aspect_ratio+1-size_with_border*aspect_ratio/2 - 1/4/2] for j_row in range(3)]) #previously 4
     return positions
 
 def create_photosensor_dot(size=2/8*0.7):
