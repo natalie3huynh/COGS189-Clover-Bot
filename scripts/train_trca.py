@@ -193,7 +193,7 @@ def run_fbtdca(eeg, target_by_trial, target_tab, duration=1.0, onset_delay=42,sr
     np.random.seed(64)
     np.random.shuffle(eeg)
     n_trials = eeg.shape[0]
-    classes = range(32)
+    classes = range(9) #only 9
     n_classes = len(classes)
     prob_matrix=np.zeros((n_classes,n_classes))
     y = np.array([list(target_tab.values())] * n_trials).T.reshape(-1)

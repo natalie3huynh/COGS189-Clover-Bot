@@ -5,6 +5,7 @@ from scipy import signal
 import random, os, pickle
 import mne
 
+#instead of 64, should be 2*9 
 cyton_in = True
 lsl_out = False
 width = 1536
@@ -50,7 +51,7 @@ cap_rect_norm = [-(text_cap_size / 2.0) / (win.size[0] / 2.0),  # left
                      +(text_cap_size / 2.0) / (win.size[0] / 2.0),  # right
                      -(text_cap_size / 2.0) / (win.size[1] / 2.0)]  # bottom
 
-# capture the rendering of each letter --> modify to now reder words
+# capture the rendering of each letter --> modify to now render words
 for (i_letter, letter) in enumerate(letters):
     text.text = letter.upper()
     buff = psychopy.visual.BufferImageStim(
@@ -265,8 +266,9 @@ if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
     #                     (13, 0), (13, 0.5), (13, 1), (13, 1.5),
     #                     (14, 0), (14, 0.5), (14, 1), (14, 1.5),
     #                     (15, 0), (15, 0.5), (15, 1), (15, 1.5), ] # flickering frequencies (in hz) and phase offsets (in pi*radians)
-    stimulus_classes = [(8, 0), (9, 0), (10, 0), (11, 0), (12, 0), #changed so flickering freq from 8-15 hz but only phase offsets at 0
-                        (13, 0), (14, 0), (15, 0), (8, 0.5)]
+    stimulus_classes = [(8, 0), (9, 0.5), (10, 1), 
+                        (11, 0), (12, .5), (13, 1),
+                        (14, 0), (15, .5), (8, 0.1)]
     stimulus_frames = np.zeros((num_frames, len(stimulus_classes)))
     for i_class, (flickering_freq, phase_offset) in enumerate(stimulus_classes):
             phase_offset += .00001  # nudge phase slightly from points of sudden jumps for offsets that are pi multiples
@@ -462,26 +464,31 @@ else:
             print(f'trial {i_trial}: ', trial_eeg.shape, trial_aux.shape)
             baseline_average = np.mean(trial_eeg[:, :baseline_duration_samples], axis=1, keepdims=True)
             trial_eeg -= baseline_average
-            eeg_trials.append(trial_eeg)
+            eeg_trials.append(trial_eeg) #segment 
             aux_trials.append(trial_aux)
             cropped_eeg = trial_eeg[:, baseline_duration_samples:]
             if model is not None:
                 prediction = model.predict(cropped_eeg)[0]
         pred_letter = letters[prediction]
-        if pred_letter not in ['⎵', '⌫', '⤒']:
-            if shift:
-                pred_text_string += pred_letter
-                shift = False
-            else:
-                pred_text_string += pred_letter.lower()
-        elif pred_letter == '⌫':
-            pred_text_string = pred_text_string[:-1]
-        elif pred_letter == '⎵':
-            pred_text_string += ' '
-        elif pred_letter == '⤒':
-            shift = True
+        pred_text_string += pred_letter
+        #avoid going over text string of 74 characters
         if len(pred_text_string) > 74:
-            pred_text_string = pred_text_string[-74:]
+             pred_text_string = pred_text_string[-74:]
+        #commented out keyboard logic since it doesn't matter if backspace is displayed if i don't use it
+        # if pred_letter not in ['⎵', '⌫', '⤒']:
+        #     if shift:
+        #         pred_text_string += pred_letter
+        #         shift = False
+        #     else:
+        #         pred_text_string += pred_letter.lower()
+        # elif pred_letter == '⌫':
+        #     pred_text_string = pred_text_string[:-1]
+        # elif pred_letter == '⎵':
+        #     pred_text_string += ' '
+        # elif pred_letter == '⤒':
+        #     shift = True
+        # if len(pred_text_string) > 74:
+        #     pred_text_string = pred_text_string[-74:]
     stop_event.set()
     board.stop_stream()
     board.release_session()
