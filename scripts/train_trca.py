@@ -266,14 +266,17 @@ def run_fbtdca(eeg, target_by_trial, target_tab, duration=1.0, onset_delay=42,sr
         return prob_matrix, accuracy_score(testYs, pred_labelss)
     return confusion_matrix(testYs, pred_labelss, normalize='true'), accuracy_score(testYs, pred_labelss)
 
-stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
-                        (9, 0), (9, 0.5), (9, 1), (9, 1.5),
-                        (10, 0), (10, 0.5), (10, 1), (10, 1.5),
-                        (11, 0), (11, 0.5), (11, 1), (11, 1.5),
-                        (12, 0), (12, 0.5), (12, 1), (12, 1.5),
-                        (13, 0), (13, 0.5), (13, 1), (13, 1.5),
-                        (14, 0), (14, 0.5), (14, 1), (14, 1.5),
-                        (15, 0), (15, 0.5), (15, 1), (15, 1.5), ]
+# stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
+#                         (9, 0), (9, 0.5), (9, 1), (9, 1.5),
+#                         (10, 0), (10, 0.5), (10, 1), (10, 1.5),
+#                         (11, 0), (11, 0.5), (11, 1), (11, 1.5),
+#                         (12, 0), (12, 0.5), (12, 1), (12, 1.5),
+#                         (13, 0), (13, 0.5), (13, 1), (13, 1.5),
+#                         (14, 0), (14, 0.5), (14, 1), (14, 1.5),
+#                         (15, 0), (15, 0.5), (15, 1), (15, 1.5), ]
+stimulus_classes = [(8, 0), (9, 0.5), (10, 1), 
+                        (11, 0), (12, .5), (13, 1),
+                        (14, 0), (15, .5), (8, 0.1)]
 
 target_tab = {tuple(map(float, cls)): idx for idx, cls in enumerate(stimulus_classes)}
 target_by_trial = [stimulus_classes] * 99

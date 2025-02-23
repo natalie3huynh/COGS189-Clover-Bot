@@ -16,6 +16,7 @@ The below code is adapted from OpenVEP public code to filter and classify SSVEP 
 ## OpenVEP
 
 ## Setup for Windows 11
+# psychopy seems to not support 3.11 and only 3.10
 ```
 pip install virtualenv
 virtualenv pyenv --python=3.11.9

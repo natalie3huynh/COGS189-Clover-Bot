@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Expansion</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="grid-container">
-        {% for i in range(9) %}
-        <button class="grid-item" id="btn{{ i }}" onclick="expandButton('btn{{ i }}')">
-            Button {{ i + 1 }}
-        </button>
-        {% endfor %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button Grid</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="button-grid">
+      <button class="grid-btn"><img src="{{ url_for('static', filename='images/help.png') }}" alt="Button 1"></button>
+      <button class="grid-btn">2</button>
+      <button class="grid-btn">3</button>
+      <button class="grid-btn">4</button>
+      <button class="grid-btn">5</button>
+      <button class="grid-btn">6</button>
+      <button class="grid-btn">7</button>
+      <button class="grid-btn">8</button>
+      <button class="grid-btn">9</button>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
+  </body>
 </html>
