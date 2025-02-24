@@ -1,28 +1,52 @@
-/* Ensure full-screen centering */
+/* Ensure the body stacks elements vertically */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Lato, sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: flex-start; /* Align content to the top */
     height: 100vh;
     background-color: #f4f4f4;
     margin: 0;
 }
 
-/* Grid container for 3x3 layout */
+/* Header as a full-width banner */
+.header {
+    margin-bottom: 5px;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Reduce space between h1 and p */
+.header h1 {
+    margin-bottom: 5px; /* Reduce space below h1 */
+}
+
+.header p {
+    margin-top: 10px; /* Reduce space above p */
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+/* Grid container for buttons */
 .button-grid {
     display: grid;
     grid-template-columns: repeat(3, auto); /* 3 equal columns */
-    grid-template-rows: repeat(3, auto);    /* 3 equal rows */
-    gap: 15px;  /* Space between buttons */
+    grid-template-rows: repeat(3, auto); /* 3 equal rows */
+    gap: 15px; /* Space between buttons */
     justify-content: center; /* Center grid horizontally */
-    align-content: center;   /* Center grid vertically */
     padding: 20px;
 }
 
 /* Button styling */
 .grid-btn {
-    width: 150px;  
+    width: 150px;
     height: 150px;
     border: none;
     background: none;
@@ -37,7 +61,7 @@ body {
 .grid-btn img {
     width: 100%;
     height: 100%;
-    object-fit: contain; 
+    object-fit: contain;
     border-radius: 5px;
 }
 
