@@ -10,7 +10,7 @@
     />
   </head>
   <body>
-    <!--Banner-->
+    <!-- Banner -->
     <div class="header">
       <h1>HeyRobo!</h1>
       <p>How can I help?</p>
@@ -73,5 +73,44 @@
         />
       </button>
     </div>
+
+    <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
+    <script>
+      // Initialize the SocketIO connection with the direct URL
+      const socket = io.connect("http://localhost:3000");
+
+      // Listen for updates from Flask (EEG prediction signal)
+      socket.on("update_ui", function (data) {
+        console.log(`Highlighting button from EEG signal: ${data.buttonId}`); // Debug log
+        highlightButton(data.buttonId); // Highlight button on predicted signal
+      });
+
+      // Function to highlight the button
+      function highlightButton(buttonId) {
+        console.log("Highlighting button:", buttonId); // Debug log
+        // Reset the background color for all buttons to clear previous highlights
+        const buttons = document.querySelectorAll(".grid-btn");
+        buttons.forEach((button) => {
+          button.style.backgroundColor = ""; // Clear the background color
+        });
+
+        // Highlight the button with a specific color
+        const buttonToHighlight = document.getElementById(buttonId);
+        if (buttonToHighlight) {
+          buttonToHighlight.style.backgroundColor = "yellow"; // Highlight with yellow
+        } else {
+          console.log("Button not found:", buttonId); // Debug log if the button ID isn't found
+        }
+      }
+
+      // Add event listeners for all buttons to highlight on click
+      const buttons = document.querySelectorAll(".grid-btn");
+      buttons.forEach((button) => {
+        button.addEventListener("click", function () {
+          console.log("Button clicked:", button.id); // Debug log
+          highlightButton(button.id); // Highlight the clicked button
+        });
+      });
+    </script>
   </body>
 </html>
