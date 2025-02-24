@@ -76,8 +76,8 @@
 
     <script src="https://cdn.socket.io/4.5.1/socket.io.min.js"></script>
     <script>
-      // Initialize the SocketIO connection with the direct URL
-      const socket = io.connect("http://localhost:3000");
+      // Initialize the SocketIO connection with the correct URL
+      const socket = io.connect("http://localhost:5000");
 
       // Listen for updates from Flask (EEG prediction signal)
       socket.on("update_ui", function (data) {
@@ -109,6 +109,7 @@
         button.addEventListener("click", function () {
           console.log("Button clicked:", button.id); // Debug log
           highlightButton(button.id); // Highlight the clicked button
+          socket.emit("control_button", { buttonId: button.id }); // Send click data to Flask
         });
       });
     </script>

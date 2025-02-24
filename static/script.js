@@ -1,5 +1,5 @@
 // Initialize the SocketIO connection with the direct URL
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('http://localhost:5000');
 
 // Listen for updates from Flask
 socket.on('update_ui', function(data) {

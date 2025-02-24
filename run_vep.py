@@ -5,19 +5,19 @@ from scipy import signal
 import random, os, pickle
 import mne
 
-#websocket connection
-import socketio
-import pickle
+# #websocket connection
+# import socketio
+# import pickle
 
-#client
-sio = socketio.Client()
+# #client
+# sio = socketio.Client()
 
-#Server connect
-sio.connect('http://localhost:3000')
+# #Server connect
+# sio.connect('http://localhost:3000')
 
-#Send data to server
-def send_data_to_server(data):
-    sio.emit('data', {'data': data})  # send data as a JSON object
+# #Send data to server
+# def send_data_to_server(data):
+#     sio.emit('data', {'data': data})  # send data as a JSON object
 
 #instead of 64, should be 2*9 
 cyton_in = True
@@ -255,8 +255,8 @@ if cyton_in:
                 print('queue-in: ', eeg_in.shape, aux_in.shape, timestamp_in.shape)
                 queue_in.put((eeg_in, aux_in, timestamp_in))
                 
-                #sending EEG data to WebSocket server
-                send_data_to_server(eeg_in.tolist()) #list conversion for JSON compatibility
+                # #sending EEG data to WebSocket server
+                # send_data_to_server(eeg_in.tolist()) #list conversion for JSON compatibility
             time.sleep(0.1)
     #Initialize a queue to store data
     queue_in = Queue()
