@@ -5,6 +5,20 @@ from scipy import signal
 import random, os, pickle
 import mne
 
+#websocket connection
+import socketio
+import pickle
+
+#client
+sio = socketio.Client()
+
+#Server connect
+sio.connect('http://localhost:3000')
+
+#Send data to server
+def send_data_to_server(data):
+    sio.emit('data', {'data': data})  # send data as a JSON object
+
 #instead of 64, should be 2*9 
 cyton_in = True
 lsl_out = False
@@ -35,7 +49,7 @@ import psychopy.event
 from psychopy import core
 
 #modify letters to be words
-letters = ['LEFT ARM', 'RIGHT ARM', 'LEFT LEG', 'RIGHT LEG', 'PILLOW', 'MASK', 'OK', 'NOT DONE', 'HELP']
+letters = ['BAD', 'MASK', 'GOOD', 'LEFT ARM', 'HELP', 'RIGHT ARM', 'LEFT LEG', 'PILLOW', 'RIGHT LEG']
 win = psychopy.visual.Window(
         size=(800, 800),
         units="norm",
@@ -51,7 +65,7 @@ cap_rect_norm = [-(text_cap_size / 2.0) / (win.size[0] / 2.0),  # left
                      +(text_cap_size / 2.0) / (win.size[0] / 2.0),  # right
                      -(text_cap_size / 2.0) / (win.size[1] / 2.0)]  # bottom
 
-# capture the rendering of each letter --> modify to now render words
+# capture the rendering of each word
 for (i_letter, letter) in enumerate(letters):
     text.text = letter.upper()
     buff = psychopy.visual.BufferImageStim(
@@ -83,7 +97,7 @@ el_mask[:text_cap_size, :text_cap_size] = 1.0
 el_mask = np.roll(el_mask,
                     (int(new_size / 2 - text_cap_size / 2),) * 2,
                     axis=(0, 1))
-# work out the phase offsets for the different letters
+# work out the phase offsets for the different words
 base_phase = ((text_cap_size * (n_text / 2.0)) - (text_cap_size / 2.0)) / new_size
 phase_inc = (text_cap_size) / float(new_size)
 phases = np.array([
@@ -240,8 +254,11 @@ if cyton_in:
             if len(timestamp_in) > 0:
                 print('queue-in: ', eeg_in.shape, aux_in.shape, timestamp_in.shape)
                 queue_in.put((eeg_in, aux_in, timestamp_in))
+                
+                #sending EEG data to WebSocket server
+                send_data_to_server(eeg_in.tolist()) #list conversion for JSON compatibility
             time.sleep(0.1)
-    
+    #Initialize a queue to store data
     queue_in = Queue()
     cyton_thread = Thread(target=get_data, args=(queue_in, lsl_out))
     cyton_thread.daemon = True
@@ -474,7 +491,11 @@ else:
         #avoid going over text string of 74 characters
         if len(pred_text_string) > 74:
              pred_text_string = pred_text_string[-74:]
-        #commented out keyboard logic since it doesn't matter if backspace is displayed if i don't use it
+    stop_event.set()
+    board.stop_stream()
+    board.release_session()
+
+    #commented out keyboard logic since it doesn't matter if backspace is displayed if i don't use it
         # if pred_letter not in ['⎵', '⌫', '⤒']:
         #     if shift:
         #         pred_text_string += pred_letter
@@ -489,6 +510,3 @@ else:
         #     shift = True
         # if len(pred_text_string) > 74:
         #     pred_text_string = pred_text_string[-74:]
-    stop_event.set()
-    board.stop_stream()
-    board.release_session()
