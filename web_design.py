@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "<h1>Hello, Flask is working!</h1>"
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(host = 'localhost', port = 3000, debug = True)
