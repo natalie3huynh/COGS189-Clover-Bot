@@ -61,7 +61,7 @@ for run_file in run_files:
     reverted_eeg_trials[shuffled_indices] = eeg_trials
     
     # Reshape the reverted EEG trials to (2, 32, 8, 350) -->RESHAPE BASED ON FINAL BUTTONS
-    reverted_eeg_trials = reverted_eeg_trials.reshape(2, 32, 8, 350)
+    reverted_eeg_trials = reverted_eeg_trials.reshape(2, 9, 8, 350)
     # reverted_eeg_trials = reverted_eeg_trials.reshape(2, 32, 8, 425)
     
     # Add the reverted EEG trials to the list
@@ -77,7 +77,7 @@ def run_fbtrca(eeg, target_by_trial, target_tab, duration=1, onset_delay=42,srat
     np.random.seed(64)
     np.random.shuffle(eeg)
     n_trials = eeg.shape[0]
-    classes = range(32)
+    classes = range(9)
     n_classes = len(classes)
     y = np.array([list(target_tab.values())] * n_trials).T.reshape(-1)
     eeg_temp = eeg[:n_trials,classes,:,onset_delay:]

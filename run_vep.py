@@ -31,9 +31,9 @@ n_per_class = 2
 stim_type = 'alternating' # 'alternating' or 'independent'
 subject = 1
 session = 1
-calibration_mode = False
+calibration_mode = True #change to false when done
 save_dir = f'data/cyton8_{stim_type}-vep_32-class_{stim_duration}s/sub-{subject:02d}/ses-{session:02d}/' # Directory to save data to
-run = 1 # Run number, it is used as the random seed for the trial sequence generation
+run = 2 # Run number, it is used as the random seed for the trial sequence generation
 save_file_eeg = save_dir + f'eeg_{n_per_class}-per-class_run-{run}.npy'
 save_file_aux = save_dir + f'aux_{n_per_class}-per-class_run-{run}.npy'
 save_file_timestamp = save_dir + f'timestamp_{n_per_class}-per-class_run-{run}.npy'
@@ -49,7 +49,7 @@ import psychopy.event
 from psychopy import core
 
 #modify letters to be words
-letters = ['BAD', 'MASK', 'GOOD', 'LEFT ARM', 'HELP', 'RIGHT ARM', 'LEFT LEG', 'PILLOW', 'RIGHT LEG']
+letters = ['BD', 'M', 'G', 'LA', 'H', 'RA', 'LL', 'P', 'RL']
 win = psychopy.visual.Window(
         size=(800, 800),
         units="norm",
