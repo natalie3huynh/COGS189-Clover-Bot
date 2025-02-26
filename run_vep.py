@@ -106,6 +106,10 @@ phases = np.array([
 win.close()
 print(text_strip.shape, el_mask.shape, phases.shape)
 
+#my code
+def send_prediction(predicted_label):
+    sio.emit('prediction', {'prediction':predicted_label})
+
 def create_9_targets(size=2/8*0.7, colors=[-1, -1, -1] * 9, checkered=False, elementTex=None, elementMask=None, phases=None):
     width, height = window.size
     aspect_ratio = width/height
@@ -429,6 +433,7 @@ if calibration_mode:
         board.stop_stream()
         board.release_session()
 
+#this is real time mode and not callibration
 else:
     prediction = 0
     pred_text_string = ''
@@ -496,6 +501,9 @@ else:
             if model is not None:
                 prediction = model.predict(cropped_eeg)[0]
         pred_letter = letters[prediction]
+        #this is the call to send the prediction
+        send_prediction(letters[pred_letter])
+        #og code
         pred_text_string += pred_letter
         #avoid going over text string of 74 characters
         if len(pred_text_string) > 74:
