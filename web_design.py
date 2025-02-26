@@ -22,7 +22,7 @@ def handle_prediction(predicted_label):
 # Test route to simulate sending a prediction
 @app.route("/test")
 def test_prediction():
-    socketio.emit('prediction', 'help')  # Example button ID to highlight
+    socketio.emit('prediction', 'H') 
     return "Test Prediction Sent!"
 
 if __name__ == '__main__':
