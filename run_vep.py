@@ -137,13 +137,30 @@ def checkered_texure():
         array[i, 1::2] = (i+1) % 2  # Set every other element to 0 or 1, alternating by row
     return np.kron(array, np.ones((16, 16)))*2-1
 
+# def create_9_target_positions(size=2/8*0.7):
+#     size_with_border = size / 0.7
+#     width, height = window.size
+#     aspect_ratio = width/height
+#     positions = []
+#     for i_col in range(3):
+#         positions.extend([[i_col*size_with_border-1+size_with_border/2, -j_row*size_with_border*aspect_ratio+1-size_with_border*aspect_ratio/2 - 1/4/2] for j_row in range(3)]) #previously 4
+#     return positions
 def create_9_target_positions(size=2/8*0.7):
     size_with_border = size / 0.7
     width, height = window.size
-    aspect_ratio = width/height
+    aspect_ratio = width / height
+
+    # Compute offsets to center the grid
+    x_offset = -((3 - 1) * size_with_border) / 2  # Center horizontally
+    y_offset = ((3 - 1) * size_with_border * aspect_ratio) / 2  # Center vertically
+
     positions = []
     for i_col in range(3):
-        positions.extend([[i_col*size_with_border-1+size_with_border/2, -j_row*size_with_border*aspect_ratio+1-size_with_border*aspect_ratio/2 - 1/4/2] for j_row in range(3)]) #previously 4
+        for j_row in range(3):
+            x = i_col * size_with_border + x_offset
+            y = -j_row * size_with_border * aspect_ratio + y_offset
+            positions.append([x, y])
+
     return positions
 
 def create_photosensor_dot(size=2/8*0.7):
@@ -274,18 +291,10 @@ if cyton_in:
 
 num_frames = np.round(stim_duration * refresh_rate).astype(int)  # total number of frames per trial
 frame_indices = np.arange(num_frames)  # frame indices for the trial
-if stim_type == 'alternating': # Alternating VEP (aka SSVEP)
-    # stimulus_classes = [(8, 0), (8, 0.5), (8, 1), (8, 1.5),
-    #                     (9, 0), (9, 0.5), (9, 1), (9, 1.5),
-    #                     (10, 0), (10, 0.5), (10, 1), (10, 1.5),
-    #                     (11, 0), (11, 0.5), (11, 1), (11, 1.5),
-    #                     (12, 0), (12, 0.5), (12, 1), (12, 1.5),
-    #                     (13, 0), (13, 0.5), (13, 1), (13, 1.5),
-    #                     (14, 0), (14, 0.5), (14, 1), (14, 1.5),
-    #                     (15, 0), (15, 0.5), (15, 1), (15, 1.5), ] # flickering frequencies (in hz) and phase offsets (in pi*radians)
+if stim_type == 'alternating': # Alternating VEP (aka SSVEP) 
     stimulus_classes = [(8, 0), (9, 0.5), (10, 1), 
                         (11, 0), (12, .5), (13, 1),
-                        (14, 0), (15, .5), (8, 0.1)]
+                        (14, 0), (15, .5), (8, 0.1)]# flickering frequencies (in hz) and phase offsets (in pi*radians)
     stimulus_frames = np.zeros((num_frames, len(stimulus_classes)))
     for i_class, (flickering_freq, phase_offset) in enumerate(stimulus_classes):
             phase_offset += .00001  # nudge phase slightly from points of sudden jumps for offsets that are pi multiples
@@ -494,19 +503,3 @@ else:
     stop_event.set()
     board.stop_stream()
     board.release_session()
-
-    #commented out keyboard logic since it doesn't matter if backspace is displayed if i don't use it
-        # if pred_letter not in ['⎵', '⌫', '⤒']:
-        #     if shift:
-        #         pred_text_string += pred_letter
-        #         shift = False
-        #     else:
-        #         pred_text_string += pred_letter.lower()
-        # elif pred_letter == '⌫':
-        #     pred_text_string = pred_text_string[:-1]
-        # elif pred_letter == '⎵':
-        #     pred_text_string += ' '
-        # elif pred_letter == '⤒':
-        #     shift = True
-        # if len(pred_text_string) > 74:
-        #     pred_text_string = pred_text_string[-74:]
