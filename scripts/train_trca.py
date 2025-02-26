@@ -22,7 +22,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Train TRCA model')
 
-folder_path = 'data/cyton8_alternating-vep_32-class_1.2s/sub-01/ses-01/'
+folder_path = 'data/cyton8_alternating-vep_9-class_1.2s/sub-01/ses-01/'
 model_save_dir = 'cache/'
 model_name = 'FBTRCA_model.pkl'
 # folder_path = '../data/cyton8_alternating-vep_32-class_1.5s/sub-01/ses-01/'
@@ -77,7 +77,7 @@ def run_fbtrca(eeg, target_by_trial, target_tab, duration=1, onset_delay=42,srat
     np.random.seed(64)
     np.random.shuffle(eeg)
     n_trials = eeg.shape[0]
-    classes = range(9)
+    classes = range(9) #change range to # of classes
     n_classes = len(classes)
     y = np.array([list(target_tab.values())] * n_trials).T.reshape(-1)
     eeg_temp = eeg[:n_trials,classes,:,onset_delay:]
