@@ -108,7 +108,7 @@ print(text_strip.shape, el_mask.shape, phases.shape)
 
 #my code
 def send_prediction(predicted_label):
-    sio.emit('prediction', {'prediction':predicted_label})
+    sio.emit('prediction', predicted_label)
 
 def create_9_targets(size=2/8*0.7, colors=[-1, -1, -1] * 9, checkered=False, elementTex=None, elementMask=None, phases=None):
     width, height = window.size
