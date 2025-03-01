@@ -48,8 +48,12 @@ import psychopy.visual
 import psychopy.event
 from psychopy import core
 
-#modify letters to be words
+#letters stimuli
 letters = ['BD', 'M', 'G', 'LA', 'H', 'RA', 'LL', 'P', 'RL']
+
+# images stimuli: Comment out to run with image stimuli rather than letters
+# image_stimuli = []
+
 win = psychopy.visual.Window(
         size=(800, 800),
         units="norm",
@@ -149,23 +153,38 @@ def checkered_texure():
 #     for i_col in range(3):
 #         positions.extend([[i_col*size_with_border-1+size_with_border/2, -j_row*size_with_border*aspect_ratio+1-size_with_border*aspect_ratio/2 - 1/4/2] for j_row in range(3)]) #previously 4
 #     return positions
-def create_9_target_positions(size=2/8*0.7):
-    size_with_border = size / 0.7
+# def create_9_target_positions(size=2/8*0.7):
+#     size_with_border = size / 0.7
+#     width, height = window.size
+#     aspect_ratio = width / height
+
+#     # Compute offsets to center the grid
+#     x_offset = -((3 - 1) * size_with_border) / 2  # Center horizontally
+#     y_offset = ((3 - 1) * size_with_border * aspect_ratio) / 2  # Center vertically
+
+#     positions = []
+#     for i_col in range(3):
+#         for j_row in range(3):
+#             x = i_col * size_with_border + x_offset
+#             y = -j_row * size_with_border * aspect_ratio + y_offset
+#             positions.append([x, y])
+
+#     return positions
+def create_9_target_positions(size=2/3*0.7):
+    size_with_border = size / 0.7  # Adjust size to include spacing
     width, height = window.size
     aspect_ratio = width / height
-
-    # Compute offsets to center the grid
-    x_offset = -((3 - 1) * size_with_border) / 2  # Center horizontally
-    y_offset = ((3 - 1) * size_with_border * aspect_ratio) / 2  # Center vertically
-
     positions = []
-    for i_col in range(3):
-        for j_row in range(3):
-            x = i_col * size_with_border + x_offset
-            y = -j_row * size_with_border * aspect_ratio + y_offset
-            positions.append([x, y])
-
+    
+    for i_col in range(3):  # 3 columns
+        positions.extend([
+            [i_col * size_with_border - size_with_border,  # X position
+             -j_row * size_with_border * aspect_ratio + size_with_border * aspect_ratio]  # Y position
+            for j_row in range(3)  # 3 rows
+        ])
+    
     return positions
+
 
 def create_photosensor_dot(size=2/8*0.7):
     width, height = window.size
@@ -298,7 +317,7 @@ frame_indices = np.arange(num_frames)  # frame indices for the trial
 if stim_type == 'alternating': # Alternating VEP (aka SSVEP) 
     stimulus_classes = [(8, 0), (9, 0.5), (10, 1), 
                         (11, 0), (12, .5), (13, 1),
-                        (14, 0), (15, .5), (8, 0.1)]# flickering frequencies (in hz) and phase offsets (in pi*radians)
+                        (14, 0), (15, .5), (8, 1)]# flickering frequencies (in hz) and phase offsets (in pi*radians)
     stimulus_frames = np.zeros((num_frames, len(stimulus_classes)))
     for i_class, (flickering_freq, phase_offset) in enumerate(stimulus_classes):
             phase_offset += .00001  # nudge phase slightly from points of sudden jumps for offsets that are pi multiples
