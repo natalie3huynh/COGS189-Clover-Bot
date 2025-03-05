@@ -1,81 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Button Grid</title>
+    <title>Clover Bot</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
+      href="{{ url_for('static', filename='style.css') }}"
     />
-    <!-- Include Socket.IO client library -->
-    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
   </head>
   <body>
-    <!-- Banner -->
     <div class="header">
-      <h1>HeyRobo!</h1>
-      <p>How can I help?</p>
+      <img
+        src = "{{ url_for('static', filename='buttons/banner.png') }}"
+        alt = "Robot Banner"
+      />
     </div>
-
-    <!-- Button Grid -->
-    <div class="button-grid">
-      <button id="BD" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/thumb_down.png') }}"
-          alt="Thumb Down"
-        />
-      </button>
-      <button id="M" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/mask.png') }}"
-          alt="Mask"
-        />
-      </button>
-      <button id="G" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/thumb_up.png') }}"
-          alt="Thumb Up"
-        />
-      </button>
-      <button id="LA" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/left_arm.png') }}"
-          alt="Left Arm"
-        />
-      </button>
-      <button id="H" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/help.png') }}"
-          alt="Help"
-        />
-      </button>
-      <button id="RA" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/right_arm.png') }}"
-          alt="Right Arm"
-        />
-      </button>
-      <button id="LL" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/left_leg.png') }}"
-          alt="Left Leg"
-        />
-      </button>
-      <button id="P" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/pillow.png') }}"
-          alt="Pillow"
-        />
-      </button>
-      <button id="RL" class="grid-btn">
-        <img
-          src="{{ url_for('static', filename='buttons/right_leg.png') }}"
-          alt="Right Leg"
-        />
-      </button>
+    <div class="grid-wrapper">
+      <div class="grid-container">
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/thumb_down.png') }}"
+            alt="Thumb Down"
+          />
+        </button>
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/mask.png') }}"
+            alt="Mask"
+          />
+        </button>
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/thumb_up.png') }}"
+            alt="Thumb Up"
+          />
+        </button>
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/left_arm.png') }}"
+            alt="Left Arm"
+          />
+        </button>
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/help.png') }}"
+            alt="Help"
+          />
+        </button>
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/right_arm.png') }}"
+            alt="Right Arm"
+          />
+        </button>
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/left_leg.png') }}"
+            alt="Left Leg"
+          />
+        </button>
+        <button class="grid-item">
+          <img
+            src="{{ url_for('static', filename='buttons/pillow.png') }}"
+            alt="Pillow"
+          />
+          <button class="grid-item">
+            <img
+              src="{{ url_for('static', filename='buttons/right_leg.png') }}"
+              alt="Right Leg"
+            />
+          </button>
+      </div>
     </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>
 </html>
