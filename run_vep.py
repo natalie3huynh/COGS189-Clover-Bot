@@ -5,17 +5,16 @@ from scipy import signal
 import random, os, pickle
 import mne
 
-# #websocket connection
-# import socketio
-# import pickle
+#websocket connection
+import socketio
 
-# #client
-# sio = socketio.Client()
+#client
+sio = socketio.Client()
 
-# #Server connect
-# sio.connect('http://localhost:3000')
+#server connect
+sio.connect('http://127.0.0.1:8000')
 
-# #Send data to server
+#Send data to server
 # def send_data_to_server(data):
 #     sio.emit('data', {'data': data})  # send data as a JSON object
 
@@ -112,6 +111,7 @@ print(text_strip.shape, el_mask.shape, phases.shape)
 
 #my code
 def send_prediction(predicted_label):
+    #passes in (event name, predicted_label)
     sio.emit('prediction', predicted_label)
 
 def create_9_targets(size=2/8*0.7, colors=[-1, -1, -1] * 9, checkered=False, elementTex=None, elementMask=None, phases=None):
@@ -520,8 +520,8 @@ else:
             if model is not None:
                 prediction = model.predict(cropped_eeg)[0]
         pred_letter = letters[prediction]
-        #this is the call to send the prediction
-        send_prediction(letters[pred_letter])
+        #this is the call to send the prediction --> does this send a pred
+        send_prediction(pred_letter)
         #og code
         pred_text_string += pred_letter
         #avoid going over text string of 74 characters
