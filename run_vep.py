@@ -14,9 +14,10 @@ sio = socketio.Client()
 #server connect
 sio.connect('http://127.0.0.1:8000')
 
-#Send data to server
-# def send_data_to_server(data):
-#     sio.emit('data', {'data': data})  # send data as a JSON object
+#my code
+def send_prediction(predicted_label):
+    #passes in (event name, predicted_label)
+    sio.emit('prediction', predicted_label)
 
 #instead of 64, should be 2*9 
 cyton_in = True
@@ -108,11 +109,6 @@ phases = np.array([
     for i_letter in range(n_text)])
 win.close()
 print(text_strip.shape, el_mask.shape, phases.shape)
-
-#my code
-def send_prediction(predicted_label):
-    #passes in (event name, predicted_label)
-    sio.emit('prediction', predicted_label)
 
 def create_9_targets(size=2/8*0.7, colors=[-1, -1, -1] * 9, checkered=False, elementTex=None, elementMask=None, phases=None):
     width, height = window.size
