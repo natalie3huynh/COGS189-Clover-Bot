@@ -11,6 +11,12 @@ import socketio
 #client
 sio = socketio.Client()
 
+try:
+    sio.connect('http://127.0.0.1:8000')
+    print("Connected to WebSocket server.")
+except Exception as e:
+    print(f"Connection failed: {e}")
+    
 #server connect
 sio.connect('http://127.0.0.1:8000')
 
