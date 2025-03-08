@@ -1,26 +1,30 @@
 .header {
-    padding: 10px 0; /* Reduce vertical padding */
+    padding: 0; /* Remove unnecessary padding */
     text-align: center;
-    margin-bottom: 0; /* Ensure minimal spacing */
+    margin: 0; /* Ensure no extra spacing */
+    margin-bottom: 20px;
     width: 100%;
+    position: relative; /* Ensures proper stacking */
 }
 
 .header img {
     width: 100%;
     height: auto;
     display: block;
+    margin: 0; /* Remove extra margin */
 }
 
-/* Ensure the body centers everything */
+
 body {
     font-family: 'Courier New', sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center horizontally */
-    justify-content: center; /* Center vertically */
-    height: 100vh;
+    align-items: center;
+    justify-content: flex-start; /* Prevents forced centering */
+    min-height: 100vh; /* Allows content to grow */
     background-color: #ffffff;
-    margin-bottom: 50px;
+    margin: 0; /* Ensures no extra margin */
+    padding: 0; /* Reset padding */
 }
 
 /* Wrapper to center the grid */
@@ -31,19 +35,20 @@ body {
     width: 100%;
 }
 
-/* Grid container */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 150px); /* Creates 3 equal columns */
-    grid-gap: 10px; /* Adds spacing between buttons */
-    justify-content: center; /* Centers items horizontally */
-    align-items: center; /* Centers items vertically */
+    grid-template-columns: repeat(3, 100px); /* Reduce button size */
+    grid-template-rows: repeat(3, 100px);
+    grid-gap: 20px; /* Reduce spacing */
+    justify-content: center;
+    align-items: center;
 }
+
 
 /* Grid items (buttons) */
 .grid-item {
-    width: 150px; /* Adjust button size */
-    height: 150px; /* Make buttons square */
+    width: 110px; /* Adjust button size */
+    height: 110px; /* Make buttons square */
     padding: 0;
     border: none;
     background: none;
