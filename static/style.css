@@ -65,8 +65,16 @@ body {
     object-fit: contain;
 }
 
-.grid-item.selected{
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+/* Adding glow features*/
+.glowing-button {
+    padding: 10px;
+    border: 2px solid rgba(76, 175, 80, 0.9);
+    background-color: transparent;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+    position: relative;
 }
 
+.glowing-button.glow {
+    box-shadow: 0 0 10px 5px rgba(76, 175, 80, 0.7); /* Green glow effect */
+}
