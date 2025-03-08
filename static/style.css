@@ -24,7 +24,7 @@ body {
     min-height: 100vh; /* Allows content to grow */
     background-color: #ffffff;
     margin: 0; /* Ensures no extra margin */
-    padding: 0; /* Reset padding */
+    padding-bottom: 10px; /* Reset padding */
 }
 
 /* Wrapper to center the grid */
@@ -37,8 +37,8 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 100px); /* Reduce button size */
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 140px); /* Reduce button size */
+    grid-template-rows: repeat(3, 140px);
     grid-gap: 20px; /* Reduce spacing */
     justify-content: center;
     align-items: center;
@@ -47,8 +47,8 @@ body {
 
 /* Grid items (buttons) */
 .grid-item {
-    width: 110px; /* Adjust button size */
-    height: 110px; /* Make buttons square */
+    width: 140px; 
+    height: 140px; 
     padding: 0;
     border: none;
     background: none;
@@ -59,7 +59,7 @@ body {
 }
 
 .grid-item img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
     object-fit: contain;
 }
