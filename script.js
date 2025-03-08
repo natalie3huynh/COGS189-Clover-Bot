@@ -17,3 +17,14 @@ socket.on('update_button', function(data) {
         button.classList.add('highlight');
     }
 });
+// document.querySelectorAll(".grid-item").forEach(button => {
+//     button.addEventListener("click", function() {
+//         console.log("Button clicked"); // Check if this shows up in the console
+//         // Remove 'selected' from all buttons
+//         document.querySelectorAll(".grid-item").forEach(btn => btn.classList.remove("selected"));
+
+//         // Add 'selected' class to clicked button
+//         this.classList.add("selected");
+//     });
+// });
+
