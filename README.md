@@ -40,7 +40,7 @@ All of the Python packages would be installed into the folder `pyenv/`, so they 
 ```
 python run_vep.py
 python scripts/train_trca.py
-python web_design.py
+python app.py
 (change the run number in run_vep.py)
 ```
 
