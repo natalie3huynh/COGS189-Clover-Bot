@@ -36,7 +36,7 @@ stim_duration = 1.2
 n_per_class = 2
 stim_type = 'alternating' # 'alternating' or 'independent'
 subject = 1 #change if subject changes
-session = 1 #change per session 
+session = 2 #change per session 
 calibration_mode = True #change to false when done
 save_dir = f'data/cyton8_{stim_type}-vep_9-class_{stim_duration}s/sub-{subject:02d}/ses-{session:02d}/' # Directory to save data to
 run = 2 # Run number, it is used as the random seed for the trial sequence generation
@@ -296,9 +296,6 @@ if cyton_in:
             if len(timestamp_in) > 0:
                 print('queue-in: ', eeg_in.shape, aux_in.shape, timestamp_in.shape)
                 queue_in.put((eeg_in, aux_in, timestamp_in))
-                
-                # #sending EEG data to WebSocket server
-                # send_data_to_server(eeg_in.tolist()) #list conversion for JSON compatibility
             time.sleep(0.1)
     #Initialize a queue to store data
     queue_in = Queue()

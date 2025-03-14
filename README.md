@@ -2,7 +2,7 @@
 
 ## Question:
 
-How can SSEVP signals be used in real-time to control the movement of a wheelchair?
+How can SSEVP signals be used in real-time to control the tasks on a caregiver assistance Web App?
 
 ## Background:
 
