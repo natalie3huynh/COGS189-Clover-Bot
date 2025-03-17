@@ -6,6 +6,8 @@ How can SSEVP signals be used in real-time to control the tasks on a caregiver a
 
 ## Background:
 
+SSVEP, otherwise known as steady-state Visual Evoked Potentials, refers to signals which reflect the rapid flashing of stimuli at certain frequencies.1 These BCI systems can be classified as either dependent or independent systems; while dependent systems are less ideal for patients who exhibit highly limited neuromuscular control due to their reliance on eye gaze detection, it is more traditionally used since it requires less training and has a lower ITR (information transfer rate).
+
 ## Methodology:
 
 ## Experimentation:
