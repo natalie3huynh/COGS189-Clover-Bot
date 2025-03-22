@@ -10,17 +10,17 @@ SSVEP, otherwise known as steady-state Visual Evoked Potentials, refers to signa
 
 ## Methodology:
 
-## Experimentation:
+This experiment is run on a single subject using an Open BCI EEG Electrode Cap. The experiment focuses on 8 channels with F4 as our reference electrode, and gel electrodes O1, O2, T5 P3, Pz, P4, T6 (the electrodes over the occipital, temporal, and parietal lobe, where the occipital region is the area of the brain which processes visual stimuli).
+
+For best results, avoid blinking while the stimuli are flashing or talking during data collection. Ensure that the Open BCI GUI is not open at the same time as data collection. Run the run_vep.py script twice, changind the run # each time to collect data to train the model. Then run the train_trca.py file once. Change callibration mode on run_vep.py to False to use system in real time.
 
 ## Implementation:
 
-The below code is adapted from OpenVEP public code to filter and classify SSVEP signals.
+The below code and instructions is adapted from OpenVEP public code to filter and classify SSVEP signals.
 
 ## OpenVEP
 
 ## Setup for Windows 11
-
-# psychopy seems to not support 3.11 and only 3.10. always deactivate venv and activate pyenv using source pyenv/bin/activate
 
 ```
 pip install virtualenv
@@ -40,8 +40,11 @@ All of the Python packages would be installed into the folder `pyenv/`, so they 
 ## Using the Caregiver BCI
 
 ```
+# collect data
 python run_vep.py
+#train model
 python scripts/train_trca.py
+#launch server
 python app.py
 (change the run number in run_vep.py)
 ```

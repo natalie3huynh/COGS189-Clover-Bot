@@ -4,16 +4,15 @@
     margin: 0; 
     margin-bottom: 20px;
     width: 100%;
-    position: relative; /* Ensures proper stacking */
+    position: relative; 
 }
 
 .header img {
     width: 100%;
     height: auto;
     display: block;
-    margin: 0; /* Remove extra margin */
+    margin: 0; 
 }
-
 
 body {
     font-family: 'Courier New', sans-serif;
@@ -21,13 +20,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start; 
-    min-height: 100vh; /* Allows content to grow */
+    min-height: 100vh; 
     background-color: #ffffff;
     margin: 0; 
     padding-bottom: 10px; 
 }
 
-/* Wrapper to center the grid */
+/* grid centering */
 .grid-wrapper {
     display: flex;
     justify-content: center;
@@ -37,15 +36,15 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 140px); /* Reduce button size */
+    grid-template-columns: repeat(3, 140px); 
     grid-template-rows: repeat(3, 140px);
-    grid-gap: 20px; /* Reduce spacing */
+    grid-gap: 20px; 
     justify-content: center;
     align-items: center;
 }
 
 
-/* Grid items (buttons) */
+/* grid buttons */
 .grid-item {
     width: 140px; 
     height: 140px; 
@@ -65,7 +64,7 @@ body {
     object-fit: contain;
 }
 
-/* Adding glow features*/
+/* glow effect*/
 .glowing-button {
     padding: 10px;
     border: 2px solid rgba(76, 175, 80, 0.9);
@@ -76,5 +75,5 @@ body {
 }
 
 .glowing-button.glow {
-    box-shadow: 0 0 10px 5px rgba(76, 175, 80, 0.7); /* Green glow effect */
+    box-shadow: 0 0 10px 5px rgb(0, 255, 255);
 }
